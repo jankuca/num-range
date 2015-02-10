@@ -1,18 +1,20 @@
 {
-  "name": "daterange.js",
-  "version": "0.3.0",
-  "homepage": "https://github.com/jrit/daterange.js",
+  "name": "numrange",
+  "version": "0.4.0",
+  "homepage": "https://github.com/jankuca/numrange",
   "authors": [
-    "Jarrett Widman <jarrett@24m2.com>"
+    "Jarrett Widman <jarrett@24m2.com>",
+    "Jan Kuča <jan@jankuca.com>"
   ],
-  "description": "Check if date ranges are equal, overlap or contain each other. Subtract and add date ranges.",
-  "main": "src/daterange.js",
+  "description": "Check if numeric or date ranges are equal, overlap or contain each other. Subtract and add ranges.",
+  "main": "src/numrange",
   "moduleType": [
     "globals",
     "node"
   ],
   "keywords": [
     "daterange",
+    "numrange",
     "date",
     "range"
   ],

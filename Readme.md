@@ -1,40 +1,40 @@
-﻿# daterange
+# numrange
 
-daterange is a simple node/browser library to work with date ranges. 
+numrange is a simple node/browser library to work with numeric and date ranges. 
 
-Compare whether date ranges are equal, overlap, or contain each other. 
+Compare whether ranges are equal, overlap, or contain each other. 
 
-Subtract and add date ranges.
+Subtract and add ranges.
 
-daterange is simple and fast.
+numrange is simple and fast.
 
 
 Install via 
 
-- `npm install daterange`
-- `bower install daterange`
+- `npm install numrange`
+- `bower install numrange`
 
 The bower install is just the main src file, bower.json and readme
 
 ## Basic Examples
 ##### Node Example
 ```javascript
-var daterange = require('daterange');
-var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
+var numrange = require('numrange');
+var range1 = numrange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
 ```
 ##### Browser Example
 ```html
 <script src="/bower_components/daterange/src/daterange.js"></script>
 <script>
-  var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
+  var range1 = numrange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
 </script>
 ```
 ### Examples cont.
 
 ##### Add 2 ranges: 
 ```javascript
-var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
-var range2 = daterange.create( new Date(2000, 0, 2), new Date(2000, 0, 4) );
+var range1 = numrange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
+var range2 = numrange.create( new Date(2000, 0, 2), new Date(2000, 0, 4) );
 var result = range1.add( range2 );
 
 result[0].start.getTime() === range1.start.getTime(); // true
@@ -42,19 +42,19 @@ result[0].end.getTime() === range2.end.getTime(); // true
 ```
 ##### Sum 2 continuous ranges: 
 ```javascript
-var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
-var range2 = daterange.create( new Date(2000, 0, 2), new Date(2000, 0, 4) );
-var result = daterange.sum( [range1, range2] );
+var range1 = numrange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
+var range2 = numrange.create( new Date(2000, 0, 2), new Date(2000, 0, 4) );
+var result = numrange.sum( [range1, range2] );
 
 result[0].start.getTime() === range1.start.getTime(); // true
 result[0].end.getTime() === range2.end.getTime(); // true
 ```
 ##### Sum 3 ranges with break inbetween: 
 ```javascript
-var range1 = daterange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
-var range2 = daterange.create( new Date(2000, 0, 2), new Date(2000, 0, 5) );
-var range3 = daterange.create( new Date(2000, 0, 7), new Date(2000, 0, 8) );
-var result = daterange.sum( [range1, range2, range3] );
+var range1 = numrange.create( new Date(2000, 0, 1), new Date(2000, 0, 3) );
+var range2 = numrange.create( new Date(2000, 0, 2), new Date(2000, 0, 5) );
+var range3 = numrange.create( new Date(2000, 0, 7), new Date(2000, 0, 8) );
+var result = numrange.sum( [range1, range2, range3] );
 
 result.length; // 2
 result[0].start.getTime() === range1.start.getTime(); // true
@@ -64,9 +64,9 @@ result[1].end.getTime() === range3.end.getTime(); // true
 ```
 ##### Inverse ( Identify gaps in summed ranges ): 
 ```javascript
-var range1 = daterange.create( new Date(2000, 0, 2), new Date(2000, 0, 5) );
-var range2 = daterange.create( new Date(2000, 0, 7), new Date(2000, 0, 8) );
-var result = daterange.inverse( [range1, range2] );
+var range1 = numrange.create( new Date(2000, 0, 2), new Date(2000, 0, 5) );
+var range2 = numrange.create( new Date(2000, 0, 7), new Date(2000, 0, 8) );
+var result = numrange.inverse( [range1, range2] );
 
 result[0].start.getTime() === range1.end.getTime(); // true
 result[0].end.getTime() === range2.start.getTime(); // true
@@ -86,15 +86,15 @@ result[0].end.getTime() === range2.start.getTime(); // true
 ## daterange Methods:
 
 ```javascript
-range = daterange.create(Date, Date);
-ranges = daterange.sum([range,range,...]);
-bool = daterange.equals(range1, range2);
-bool = daterange.contains(outer, inner);
-bool = daterange.overlaps(range1, range2);
-ranges = daterange.subtract(range1, diffRange);
+range = numrange.create(Date, Date);
+ranges = numrange.sum([range,range,...]);
+bool = numrange.equals(range1, range2);
+bool = numrange.contains(outer, inner);
+bool = numrange.overlaps(range1, range2);
+ranges = numrange.subtract(range1, diffRange);
 ```
 
-## daterange Instance Methods, from daterange.create:
+## numrange Instance Methods, from numrange.create:
 
 ```javascript
 bool = range.equals(range);
@@ -118,7 +118,7 @@ Run tests and code coverage report
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2014 Jarrett Widman
+Copyright (c) 2014 Jarrett Widman, Jan Kuča
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

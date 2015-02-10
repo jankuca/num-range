@@ -1,7 +1,7 @@
 {
-  "name": "daterange",
-  "version": "0.3.0",
-  "description": "daterange is a simple node/browser library to work with date ranges. Compare whether date ranges equal, overlap, or contain each other. Subtract and add date ranges.",
+  "name": "numrange",
+  "version": "0.4.0",
+  "description": "numrange is a simple node/browser library to work with numeric or date ranges. Compare whether ranges equal, overlap, or contain each other. Subtract and add ranges.",
   "directories": {
     "test": "test"
   },
@@ -11,9 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jrit/daterange.js.git"
+    "url": "https://github.com/jankuca/numrange.git"
   },
   "keywords": [
+    "numrange",
     "daterange.js",
     "daterange",
     "date",
@@ -25,9 +26,9 @@
   "author": "Jarrett Widman",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jrit/daterange.js/issues"
+    "url": "https://github.com/jankuca/numrange/issues"
   },
-  "homepage": "https://github.com/jrit/daterange.js",
+  "homepage": "https://github.com/jankuca/numrange",
   "devDependencies": {
     "grunt": "^0.4.4",
     "grunt-contrib-watch": "^0.6.1",
