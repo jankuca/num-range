@@ -3,7 +3,7 @@ var daterange = require( "../index.js" );
 
 /**
  * Mocha tests
- */ 
+ */
 
 describe( 'daterange', function ()
 {
@@ -102,7 +102,7 @@ describe( 'daterange', function ()
 		assert( sum[1].end.getTime() === fourth.getTime() );
 		done();
 	} );
-	
+
 	it( 'should have empty subtract when nothing to return', function ( done )
 	{
 		var diff = daterange.create( second, third ).subtract( daterange.create( firstX, thirdX ) );

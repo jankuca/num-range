@@ -7,12 +7,12 @@
 
 	var rangeSortStart = function ( a, b )
 	{
-		return ( a.start.getTime() - b.start.getTime() );
+		return ( a.start - b.start );
 	};
 
 	var rangeSortEnd = function ( a, b )
 	{
-		return ( a.end.getTime() - b.end.getTime() );
+		return ( a.end - b.end );
 	};
 
 	var copyArray = function ( src )
@@ -41,24 +41,51 @@
 
 	daterange.equals = function ( range1, range2 )
 	{
+		if ( !( range1.start instanceof Date ) ||
+				!( range2.start instanceof Date ) ||
+				!( range1.end instanceof Date ) ||
+				!( range2.end instanceof Date ) )
+		{
+			return range1.start === range2.start && range1.end === range2.end;
+		}
 		return ( range1.start.getTime() === range2.start.getTime()
 					&& range1.end.getTime() === range2.end.getTime() );
 	};
 
 	daterange.contains = function ( outer, inner )
 	{
-		return ( !outer.equals( inner ) 
-					&& outer.start.getTime() <= inner.start.getTime() 
+		if ( !( outer.start instanceof Date ) ||
+				!( inner.start instanceof Date ) ||
+				!( outer.end instanceof Date ) ||
+				!( inner.end instanceof Date ) )
+		{
+			return ( !outer.equals( inner )
+						&& outer.start <= inner.start
+						&& outer.end >= inner.end );
+		}
+		return ( !outer.equals( inner )
+					&& outer.start.getTime() <= inner.start.getTime()
 					&& outer.end.getTime() >= inner.end.getTime() );
 	};
 
 	daterange.overlaps = function ( range1, range2 )
 	{
+		if ( !( range1.start instanceof Date ) ||
+				!( range2.start instanceof Date ) ||
+				!( range1.end instanceof Date ) ||
+				!( range2.end instanceof Date ) )
+		{
+			return ( range1.equals( range2 )
+						|| range1.contains( range2 )
+						|| range2.contains( range1 )
+						|| range1.start < range2.start && range1.end > range2.start
+						|| range2.start < range1.start && range2.end > range1.start );
+		}
 		return ( range1.equals( range2 )
-					|| range1.contains( range2 )
-					|| range2.contains( range1 )
-					|| range1.start.getTime() < range2.start.getTime() && range1.end.getTime() > range2.start.getTime()
-					|| range2.start.getTime() < range1.start.getTime() && range2.end.getTime() > range1.start.getTime() );
+				|| range1.contains( range2 )
+				|| range2.contains( range1 )
+				|| range1.start.getTime() < range2.start.getTime() && range1.end.getTime() > range2.start.getTime()
+				|| range2.start.getTime() < range1.start.getTime() && range2.end.getTime() > range1.start.getTime() );
 	};
 
 	daterange.subtract = function ( range1, diffRange )
@@ -71,15 +98,19 @@
 		var parts = [daterange.create( range1.start, diffRange.start ), daterange.create( diffRange.end, range1.end )];
 		return ( parts.filter( function ( item )
 		{
+			if ( !( item.start instanceof Date ) || !( item.end instanceof Date ) )
+			{
+				return ( item.end > item.start );
+			}
 			return ( item.end.getTime() > item.start.getTime() );
 		} ) );
 	};
 
 	daterange.create = function ( start, end )
 	{
-		if ( !start || !end )
+		if ( ( !start || !end ) && start !== 0 && end !== 0 )
 		{
-			throw "start and end are required";
+			throw new Error( "start and end are required" );
 		}
 
 		var me = {
@@ -150,17 +181,25 @@
 		{
 			var overlappingEnd = find( orderedRemaining, function ( a )
 			{
+				if ( !( item.start instanceof Date ) || !( item.end instanceof Date ) )
+				{
+					return ( item.end === a.start || item.overlaps( a ) )
+				}
 				return ( item.end.getTime() === a.start.getTime() || item.overlaps( a ) )
 			} );
 
 			if ( overlappingEnd )
 			{
 				var newRange = daterange.create( item.start, overlappingEnd.end );
-				
+
 				var overlappingSum =
 					summed
 					.filter( function ( a )
 					{
+						if ( !( item.start instanceof Date ) || !( item.end instanceof Date ) )
+						{
+							return ( a.end === newRange.start || a.overlaps( newRange ) );
+						}
 						return ( a.end.getTime() === newRange.start.getTime() || a.overlaps( newRange ) );
 					} )
 					.sort( rangeSortEnd );
