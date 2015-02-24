@@ -29,6 +29,9 @@
     "url": "https://github.com/jankuca/numrange/issues"
   },
   "homepage": "https://github.com/jankuca/numrange",
+  "dependencies": {
+    "long": "2.2.x"
+  },
   "devDependencies": {
     "grunt": "^0.4.4",
     "grunt-contrib-watch": "^0.6.1",
